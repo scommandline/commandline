@@ -1,0 +1,13 @@
+id = "sidon"
+
+[email]
+username = "sidoncd"
+host = "gmail.com"
+
+[name]
+display = "Sidon Duarte"
+
+[social]
+email = ""
+facebook  = "sidon.net"
+twitter = "sidoncd"
