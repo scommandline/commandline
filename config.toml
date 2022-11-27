@@ -83,7 +83,7 @@ github = "Sidon"
 linkedin = "sidon-duarte"
 twitter = "sidoncd"
 telegram = "sidonduarte"
-youtube = "command-line"
+youtube = "@command-line"
 
 [params.comments]
 enable = false
