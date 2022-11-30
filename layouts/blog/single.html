@@ -1,0 +1,73 @@
+{{ define "main" }}
+<article>
+<div class="row justify-content-center">
+  <div class="col-md-12 col-lg-10">
+    <div class="blog-header">
+      <h1>{{ .Title }}</h1>
+      {{ partial "main/blog-meta.html" . }}
+    </div>
+  </div>
+  <div class="col-md-13">
+    <div>
+      {{- .Scratch.Set "fillImage" "1270x715 Center" -}}
+      {{ partial "content/figure.html" . }}
+    </div>
+  </div>
+  <div class="col-md-12 col-lg-9">
+  <button class="btn btn-outline-primary btn-sm doks-toc-toggle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#onThisPage" aria-controls="doks-docs-nav" aria-expanded="false" aria-label="Toggle On this page navigation">
+      <span>{{ i18n "on-this-page" }}</span>
+      <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" class="doks doks-expand" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Expand</title><polyline points="7 13 12 18 17 13"></polyline><polyline points="7 6 12 11 17 6"></polyline></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" class="doks doks-collapse" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Collapse</title><polyline points="17 11 12 6 7 11"></polyline><polyline points="17 18 12 13 7 18"></polyline></svg>
+      </span>
+    </button>
+    <div class="collapse" id="onThisPage">
+      <div class="card card-body mt-3 py-1">
+        <div class="page-links">
+          {{ .TableOfContents }}
+        </div>
+      </div>
+    </div>
+    {{ .Content }}
+    {{ if .Params.tags -}}
+    <div class="mt-4">
+      {{ range $index, $tag := .Params.tags -}}
+        <a class="btn btn-light" href="{{ "/tags/" | absURL }}{{ . | urlize }}/" role="button">{{ . }}</a>
+      {{ end -}}
+    </div>
+    {{ end -}}
+  </div>
+</div>
+</article>
+
+{{ $related := .Site.RegularPages.Related . | first 3 -}}
+{{ with $related -}}
+<div class="related-posts">
+<div class="row justify-content-center">
+  <div class="col">
+    <h2 class="section-title">Related posts</h2>
+  </div>
+</div>
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-lg-5">
+  {{ range . -}}
+  <div class="col">
+    <div class="card">
+      {{- .Scratch.Set "fillImageCard" "1270x620 Center" -}}
+      {{ partial "content/card-image.html" . }}
+      <div class="card-body">
+        <article>
+          <h2 class="h3"><a class="stretched-link text-body" href="{{ .RelPermalink }}">{{ .Params.title }}</a></h2>
+          <p>{{ .Params.excerpt | safeHTML }}</p>
+          {{ partial "main/blog-meta.html" . -}}
+        </article>
+      </div>
+    </div>
+  </div>
+  {{ end -}}
+</div>
+</div>
+{{ end -}}
+
+{{ end }}
+
+
